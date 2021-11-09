@@ -1,6 +1,5 @@
 ﻿using Payroll.Services;
 using Payroll.Views;
-using System;
 
 namespace Payroll
 {
