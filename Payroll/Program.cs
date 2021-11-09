@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Payroll.Services;
+using System;
 
 namespace Payroll
 {
@@ -6,7 +7,7 @@ namespace Payroll
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Seeder.Seed();
         }
     }
 }
