@@ -6,7 +6,7 @@ namespace Payroll.Views
 {
     class LoginView
     {
-        public void Run()
+        public static void Run()
         {
             while (true)
             {

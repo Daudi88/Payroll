@@ -9,8 +9,7 @@ namespace Payroll
         static void Main(string[] args)
         {
             Seeder.Seed();
-            var login = new LoginView();
-            login.Run();
+            LoginView.Run();
         }
     }
 }
