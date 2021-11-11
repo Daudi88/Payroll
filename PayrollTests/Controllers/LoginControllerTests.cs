@@ -1,10 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Payroll.Services;
 
 namespace Payroll.Controllers.Tests
 {
     [TestClass()]
     public class LoginControllerTests
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            Seeder.Seed();
+        }
+
         [TestMethod()]
         public void LoginTest_CorrectInput_ReturnsAccount()
         {

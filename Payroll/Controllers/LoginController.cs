@@ -8,8 +8,7 @@ namespace Payroll.Controllers
     {
         public Account Login(string username, string password)
         {
-            var db = new PayrollContext();
-            return db.Accounts.FirstOrDefault(a => a.Username == username && a.Password == password);
+            return Seeder.Accounts.FirstOrDefault(a => a.Username == username && a.Password == password);
         }
     }
 }
