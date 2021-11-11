@@ -1,19 +1,13 @@
 ﻿using Payroll.Models;
-using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Payroll.Services
 {
     public class Seeder
     {
-        public static List<Account> Accounts = new();
-
         public static void Seed()
         {
-            var fileName = "accounts.txt";
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
-            var input = File.ReadAllLines(path);
+            var input = File.ReadAllLines(Database.FilePath);
             
             foreach (var line in input)
             {
@@ -31,7 +25,7 @@ namespace Payroll.Services
                         Role = inputLine[4],
                     };
 
-                    Accounts.Add(account);
+                    Database.Accounts.Add(account);
                 }
                 else
                 {
@@ -44,16 +38,16 @@ namespace Payroll.Services
                         Role = inputLine[4],
                     };
 
-                    Accounts.Add(account);
+                    Database.Accounts.Add(account);
                 }
             }
 
-            if (Accounts.Count < 1)
+            if (Database.Accounts.Count < 1)
             {
                 var admin = new Admin { Id = 1, Username = "admin1", Password = "admin1234", Salary = 50000, Role = "Cheif Excecutive Officer" };
-                Accounts.Add(admin);
+                Database.Accounts.Add(admin);
                 var content = new string[] { $"{admin.Id},{admin.Username},{admin.Password},{admin.Salary},{admin.Role},{admin.IsAdmin}," };
-                File.WriteAllLines(path, content);
+                File.WriteAllLines(Database.FilePath, content);
             }
         }
     }

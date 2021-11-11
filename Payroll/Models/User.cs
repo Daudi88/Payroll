@@ -1,6 +1,6 @@
 ﻿namespace Payroll.Models
 {
-    class User : Account
+    public class User : Account
     {
         public User()
         {

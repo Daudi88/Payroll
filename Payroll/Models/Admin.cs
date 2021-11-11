@@ -1,6 +1,6 @@
 ﻿namespace Payroll.Models
 {
-    class Admin : Account
+    public class Admin : Account
     {
         public Admin()
         {

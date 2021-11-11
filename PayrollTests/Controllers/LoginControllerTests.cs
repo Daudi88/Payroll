@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Payroll.Models;
 using Payroll.Services;
 
 namespace Payroll.Controllers.Tests
@@ -9,7 +10,8 @@ namespace Payroll.Controllers.Tests
         [TestInitialize]
         public void Initialize()
         {
-            Seeder.Seed();
+            var admin = new Admin { Username = "admin1", Password = "admin1234" };
+            Database.Accounts.Add(admin);
         }
 
         [TestMethod()]
