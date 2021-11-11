@@ -1,6 +1,6 @@
 ﻿using Payroll.Controllers;
+using static Payroll.Helpers.Helper;
 using System;
-using System.Threading;
 
 namespace Payroll.Views
 {
@@ -10,34 +10,33 @@ namespace Payroll.Views
         {
             while (true)
             {
+                Console.Clear();
                 Console.Write("Enter username: ");
-                var username = Console.ReadLine();
+                var username = GetInput();
                 Console.Write("Enter password: ");
-                var password = Console.ReadLine();
+                var password = GetInput();
 
                 var loginController = new LoginController();
                 var account = loginController.Login(username, password);
                 if (account != null)
                 {
-                    Console.WriteLine("Login was successfull!");
-                    Thread.Sleep(2000);
+                    SuccessMessage("Login was successfull!");
                     if (account.IsAdmin)
                     {
-                        // Admin menu
+                        AdminView.Menu(account);
                     }
                     else
                     {
-                        // User menu
+                        UserView.Menu(account);
                     }
 
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Login was not successfull!");
-                    Console.WriteLine("Username or password was incorrect.");
-                    Console.Write("Do you want to try again [y] or exit [n]?");
-                    var choice = Console.ReadLine().ToLower();
+                    ErrorMessage("Login was not successfull!\nUsername or password was incorrect.");
+                    Console.Write("Do you want to try again [y] or exit [n]? ");
+                    var choice = GetInput().ToLower();
                     if (choice == "n")
                     {
                         break;
