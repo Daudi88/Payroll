@@ -1,6 +1,6 @@
 ﻿using Payroll.Controllers;
-using static Payroll.Helpers.Helper;
 using System;
+using static Payroll.Helpers.Helper;
 
 namespace Payroll.Views
 {
