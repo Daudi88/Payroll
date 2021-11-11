@@ -12,7 +12,7 @@ namespace Payroll.Services
 
         public static void Seed()
         {
-            var fileName = @"..\..\..\..\accounts.txt";
+            var fileName = "accounts.txt";
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
             var input = File.ReadAllLines(path);
             
