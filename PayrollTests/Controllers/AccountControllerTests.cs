@@ -13,15 +13,17 @@ namespace Payroll.Controllers.Tests
     public class AccountControllerTests
     {
         User validUser;
-        User invalidUser;
+        User invalidUsername;
         User existingUsername;
+        User invalidPassword;
         AccountController accountCont;
 
         [TestInitialize]
         public void Initialize()
         {
             validUser = new User {Username = "user1", Password = "user1234" };
-            invalidUser = new User {Username = "   " };
+            invalidUsername = new User {Username = "user", Password = "password1"};
+            invalidPassword = new User { Username = "user4", Password = "password"};
             existingUsername = new User { Username = "admin1" };
             accountCont = new AccountController();
         }
@@ -36,9 +38,16 @@ namespace Payroll.Controllers.Tests
         }
 
         [TestMethod()]
-        public void AddTest_InvalidUser_ReturnsFalse()
+        public void AddTest_InvalidUsername_ReturnsFalse()
         {
-            var actual = accountCont.Add(invalidUser);
+            var actual = accountCont.Add(invalidUsername);
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void AddTest_InvalidPassword_ReturnsFalse()
+        {
+            var actual = accountCont.Add(invalidPassword);
             Assert.IsFalse(actual);
         }
 

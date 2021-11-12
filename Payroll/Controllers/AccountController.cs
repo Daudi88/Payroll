@@ -12,7 +12,9 @@ namespace Payroll.Controllers
     {
         public bool Add(Account newAccount)
         {
-            if(!string.IsNullOrEmpty(newAccount.Username))
+            if(!string.IsNullOrEmpty(newAccount.Username) 
+                && newAccount.Username.Any(char.IsDigit) 
+                && newAccount.Username.Any(char.IsLetter))
             {
                 foreach(var account in Database.Accounts)
                 {
@@ -22,7 +24,9 @@ namespace Payroll.Controllers
                     }
                 }
 
-                if(!string.IsNullOrEmpty(newAccount.Password))
+                if(!string.IsNullOrEmpty(newAccount.Password)
+                    && newAccount.Password.Any(char.IsDigit)
+                    && newAccount.Password.Any(char.IsLetter))
                 {
                     Database.Accounts.Add(newAccount);
                     Database.Save();
