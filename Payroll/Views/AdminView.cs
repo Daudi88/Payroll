@@ -34,6 +34,7 @@ namespace Payroll.Views
                         case 3:
                             break;
                         case 4:
+                            AccountView.Add();
                             break;
                         case 5:
                             break;
