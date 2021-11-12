@@ -22,7 +22,7 @@ namespace Payroll.Services
                 var inputLine = line.Split(',');
 
                 // Checks IsAdmin to determine what type of account to create.
-                if (inputLine[5] == "true")
+                if (inputLine[5] == "True")
                 {
                     var account = new Admin
                     {
