@@ -2,6 +2,7 @@
 using Payroll.Models;
 using Payroll.Services;
 using System;
+using System.Linq;
 using static Payroll.Helpers.Helper;
 
 namespace Payroll.Views
@@ -13,7 +14,7 @@ namespace Payroll.Views
             Account account;
 
             Console.Write("Would you like the new account to be an Admin [1] or User [2]? ");
-            int.TryParse(Console.ReadLine(), out int choice);
+            int.TryParse(GetInput(), out int choice);
             if(choice == 1)
             {
                 account = new Admin();
@@ -28,16 +29,15 @@ namespace Payroll.Views
                 return;
             }
 
-            account.Id = db.Accounts.Count + 1;
             Console.WriteLine("Please enter the following for the new account:");
             Console.Write("Username: ");
-            account.Username = Console.ReadLine();
+            account.Username = GetInput();
             Console.Write("Password: ");
-            account.Password = Console.ReadLine();
+            account.Password = GetInput();
             Console.Write("Company role: ");
-            account.Role = Console.ReadLine();
+            account.Role = GetInput();
             Console.Write("Salary: ");
-            int.TryParse(Console.ReadLine(), out var salary);
+            int.TryParse(GetInput(), out var salary);
             account.Salary = salary;
 
             AccountController accountCont = new();
@@ -50,6 +50,48 @@ namespace Payroll.Views
                 ErrorMessage("Something went wrong." +
                     "\nMake sure to create a unique username. " +
                     "\nRemember that username and password need to contain digits and letters");
+            }
+            
+        }
+
+        public static void RemoveAnAccount(Database db, Admin admin)
+        {
+            Console.WriteLine("Please enter the following for the account to remove: ");
+            Console.Write("Username: ");
+            var username = GetInput();
+            Console.Write("Password: ");
+            var password = GetInput();
+
+            var accountController = new AccountController();
+            var account = accountController.RemoveChecks(db, admin, username, password);
+            if (account != null)
+            {
+                RemoveAccount(db, account);
+            }
+
+        }
+
+        private static void RemoveAccount(Database db, Account account)
+        {
+            Console.WriteLine($"Are you sure that you'd like to remove {account.Username}?");
+            Console.WriteLine("Enter [remove] to remove the account, press any key to abort");
+            Console.Write("> ");
+            var input = GetInput();
+            if(input == "remove")
+            {
+                var accountCont = new AccountController();
+                if(accountCont.Remove(db, account))
+                {
+                    SuccessMessage($"{account.Username} is successfully removed");
+                }
+                else
+                {
+                    ErrorMessage("Something went wrong");
+                }
+            }
+            else
+            {
+                ErrorMessage($"{account.Username} was not removed");
             }
             
         }

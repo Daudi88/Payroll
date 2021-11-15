@@ -1,4 +1,5 @@
 ﻿using Payroll.Controllers;
+using Payroll.Models;
 using Payroll.Services;
 using System;
 using static Payroll.Helpers.Helper;
@@ -24,11 +25,13 @@ namespace Payroll.Views
                     SuccessMessage("Login was successfull!");
                     if (account.IsAdmin)
                     {
-                        AdminView.Menu(db, account);
+                        var admin = (Admin)account;
+                        AdminView.Menu(db, admin);
                     }
                     else
                     {
-                        UserView.Menu(db, account);
+                        var user = (User)account;
+                        UserView.Menu(db, user);
                     }
 
                     break;

@@ -7,7 +7,7 @@ namespace Payroll.Views
 {
     class AdminView
     {
-        public static void Menu(Database db, Account admin)
+        public static void Menu(Database db, Admin admin)
         {
             var logout = false;
             while (!logout)
