@@ -19,8 +19,8 @@ namespace PayrollTests
             accountController = new();
             loginController = new();
 
-            var seeder = new Seeder();
-            seeder.Seed(db);
+            var admin = new Admin { Username = "admin1", Password = "admin1234" };
+            db.Accounts.Add(admin);
         }
 
 
