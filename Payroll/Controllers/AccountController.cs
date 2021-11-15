@@ -1,22 +1,18 @@
 ﻿using Payroll.Models;
 using Payroll.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Payroll.Controllers
 {
     public class AccountController
     {
-        public bool Add(Account newAccount)
+        public bool Add(Database db, Account newAccount)
         {
             if(!string.IsNullOrEmpty(newAccount.Username) 
                 && newAccount.Username.Any(char.IsDigit) 
                 && newAccount.Username.Any(char.IsLetter))
             {
-                foreach(var account in Database.Accounts)
+                foreach(var account in db.Accounts)
                 {
                     if(newAccount.Username == account.Username)
                     {
@@ -28,8 +24,8 @@ namespace Payroll.Controllers
                     && newAccount.Password.Any(char.IsDigit)
                     && newAccount.Password.Any(char.IsLetter))
                 {
-                    Database.Accounts.Add(newAccount);
-                    Database.Save();
+                    db.Accounts.Add(newAccount);
+                    db.Save();
                     return true;
                 }
             }
@@ -37,11 +33,11 @@ namespace Payroll.Controllers
             return false;
         }
 
-        public bool Remove(Account account)
+        public bool Remove(Database db, Account account)
         {
             try
             {
-                Database.Accounts.Remove(account);
+                db.Accounts.Remove(account);
                 return true;
             }
             catch

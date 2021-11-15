@@ -6,9 +6,9 @@ namespace Payroll.Controllers
 {
     public class LoginController
     {
-        public Account Login(string username, string password)
+        public Account Login(Database db, string username, string password)
         {
-            return Database.Accounts.FirstOrDefault(a => a.Username == username && a.Password == password);
+            return db.Accounts.FirstOrDefault(a => a.Username == username && a.Password == password);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Payroll.Views
 {
     class UserView
     {
-        public static void Menu(Account user)
+        public static void Menu(Database db, Account user)
         {
             var logout = false;
             while (!logout)

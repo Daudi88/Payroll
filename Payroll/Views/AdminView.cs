@@ -7,7 +7,7 @@ namespace Payroll.Views
 {
     class AdminView
     {
-        public static void Menu(Account admin)
+        public static void Menu(Database db, Account admin)
         {
             var logout = false;
             while (!logout)
@@ -34,7 +34,7 @@ namespace Payroll.Views
                         case 3:
                             break;
                         case 4:
-                            AccountView.Add();
+                            AccountView.Add(db);
                             break;
                         case 5:
                             break;

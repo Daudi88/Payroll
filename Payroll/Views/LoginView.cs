@@ -1,4 +1,5 @@
 ﻿using Payroll.Controllers;
+using Payroll.Services;
 using System;
 using static Payroll.Helpers.Helper;
 
@@ -6,7 +7,7 @@ namespace Payroll.Views
 {
     class LoginView
     {
-        public static void Run()
+        public static void Login(Database db)
         {
             while (true)
             {
@@ -17,17 +18,17 @@ namespace Payroll.Views
                 var password = GetInput();
 
                 var loginController = new LoginController();
-                var account = loginController.Login(username, password);
+                var account = loginController.Login(db, username, password);
                 if (account != null)
                 {
                     SuccessMessage("Login was successfull!");
                     if (account.IsAdmin)
                     {
-                        AdminView.Menu(account);
+                        AdminView.Menu(db, account);
                     }
                     else
                     {
-                        UserView.Menu(account);
+                        UserView.Menu(db, account);
                     }
 
                     break;

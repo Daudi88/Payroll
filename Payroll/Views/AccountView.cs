@@ -1,18 +1,14 @@
-﻿using Payroll.Models;
+﻿using Payroll.Controllers;
+using Payroll.Models;
 using Payroll.Services;
 using System;
 using static Payroll.Helpers.Helper;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Payroll.Controllers;
 
 namespace Payroll.Views
 {
     class AccountView
     {
-        public static void Add()
+        public static void Add(Database db)
         {
             Account account;
 
@@ -32,7 +28,7 @@ namespace Payroll.Views
                 return;
             }
 
-            account.Id = Database.Accounts.Count + 1;
+            account.Id = db.Accounts.Count + 1;
             Console.WriteLine("Please enter the following for the new account:");
             Console.Write("Username: ");
             account.Username = Console.ReadLine();
@@ -45,7 +41,7 @@ namespace Payroll.Views
             account.Salary = salary;
 
             AccountController accountCont = new();
-            if (accountCont.Add(account))
+            if (accountCont.Add(db, account))
             {
                 SuccessMessage("The new account was successfully added!");
             }
