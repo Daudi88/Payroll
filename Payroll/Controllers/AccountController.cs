@@ -35,37 +35,43 @@ namespace Payroll.Controllers
             return false;
         }
 
-        public Account RemoveChecks(Database db, Admin admin, string username, string password)
+        public (Account, string) RemoveChecks(Database db, Admin admin, string username, string password)
         {
             var account = db.Accounts.FirstOrDefault(u => u.Username == username);
+            string message = null;
             if (account != null)
             {
                 if (account.Password == password)
                 {
                     if (account.Id != admin.Id)
                     {
-                        return account;
+                        return (account, message);
                     }
                     else
                     {
-                        ErrorMessage("You cannot remove your own account as admin");
+                        message = "You cannot remove your own account as admin";
                     }
                 }
                 else
                 {
-                    ErrorMessage("Password is incorrect");
+                    message = "Password is incorrect";
                 }
             }
             else
             {
-                ErrorMessage("There's no account matching the username provided");
+                message = "There's no account matching the username provided";
             }
 
-            return null;
+            return (null, message);
         }
 
         public bool Remove(Database db, Account account)
         {
+            if(account == null)
+            {
+                return false;
+            }
+
             try
             {
                 db.Accounts.Remove(account);

@@ -37,6 +37,7 @@ namespace Payroll.Views
                             AccountView.Add(db);
                             break;
                         case 5:
+                            AccountView.RemoveAnAccount(db, admin);
                             break;
                         case 6:
                             logout = true;

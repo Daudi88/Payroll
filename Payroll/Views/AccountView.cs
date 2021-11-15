@@ -63,16 +63,25 @@ namespace Payroll.Views
             var password = GetInput();
 
             var accountController = new AccountController();
-            var account = accountController.RemoveChecks(db, admin, username, password);
-            if (account != null)
+            var (account, message) = accountController.RemoveChecks(db, admin, username, password);
+            if(account != null)
             {
                 RemoveAccount(db, account);
+            }
+            else
+            {
+                ErrorMessage(message);
             }
 
         }
 
-        private static void RemoveAccount(Database db, Account account)
+        public static void RemoveAccount(Database db, Account account)
         {
+            if(account == null)
+            {
+                return;
+            }
+
             Console.WriteLine($"Are you sure that you'd like to remove {account.Username}?");
             Console.WriteLine("Enter [remove] to remove the account, press any key to abort");
             Console.Write("> ");
