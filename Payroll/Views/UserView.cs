@@ -30,6 +30,10 @@ namespace Payroll.Views
                         case 2:
                             break;
                         case 3:
+                            if(AccountView.RemoveAccount(db, user))
+                            {
+                                logout = true;
+                            }
                             break;
                         case 4:
                             logout = true;

@@ -75,11 +75,11 @@ namespace Payroll.Views
 
         }
 
-        public static void RemoveAccount(Database db, Account account)
+        public static bool RemoveAccount(Database db, Account account)
         {
             if(account == null)
             {
-                return;
+                return false;
             }
 
             Console.WriteLine($"Are you sure that you'd like to remove {account.Username}?");
@@ -92,6 +92,7 @@ namespace Payroll.Views
                 if(accountCont.Remove(db, account))
                 {
                     SuccessMessage($"{account.Username} is successfully removed");
+                    return true;
                 }
                 else
                 {
@@ -102,7 +103,8 @@ namespace Payroll.Views
             {
                 ErrorMessage($"{account.Username} was not removed");
             }
-            
+
+            return false;
         }
     }
 }
