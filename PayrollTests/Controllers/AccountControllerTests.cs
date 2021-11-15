@@ -1,17 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Payroll.Controllers;
 using Payroll.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Payroll.Services;
 
 namespace Payroll.Controllers.Tests
 {
     [TestClass()]
     public class AccountControllerTests
     {
+        Database db;
         User validUser;
         User invalidUsername;
         User existingUsername;
@@ -21,6 +17,7 @@ namespace Payroll.Controllers.Tests
         [TestInitialize]
         public void Initialize()
         {
+            db = new Database();
             validUser = new User {Username = "user1", Password = "user1234" };
             invalidUsername = new User {Username = "user", Password = "password1"};
             invalidPassword = new User { Username = "user4", Password = "password"};
@@ -31,30 +28,30 @@ namespace Payroll.Controllers.Tests
         [TestMethod()]
         public void AddAndRemoveTest_ValidUser_ReturnsTrue()
         {
-            var actual1 = accountCont.Add(validUser);
+            var actual1 = accountCont.Add(db, validUser);
             Assert.IsTrue(actual1);
-            var actual2 = accountCont.Remove(validUser);
+            var actual2 = accountCont.Remove(db, validUser);
             Assert.IsTrue(actual2);
         }
 
         [TestMethod()]
         public void AddTest_InvalidUsername_ReturnsFalse()
         {
-            var actual = accountCont.Add(invalidUsername);
+            var actual = accountCont.Add(db, invalidUsername);
             Assert.IsFalse(actual);
         }
 
         [TestMethod()]
         public void AddTest_InvalidPassword_ReturnsFalse()
         {
-            var actual = accountCont.Add(invalidPassword);
+            var actual = accountCont.Add(db, invalidPassword);
             Assert.IsFalse(actual);
         }
 
         [TestMethod()]
         public void AddTest_ExistingUser_ReturnsFalse()
         {
-            var actual = accountCont.Add(existingUsername);
+            var actual = accountCont.Add(db, existingUsername);
             Assert.IsFalse(actual);
         }
     }
