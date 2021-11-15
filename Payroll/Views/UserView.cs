@@ -7,7 +7,7 @@ namespace Payroll.Views
 {
     class UserView
     {
-        public static void Menu(Database db, Account user)
+        public static void Menu(Database db, User user)
         {
             var logout = false;
             while (!logout)
@@ -30,6 +30,10 @@ namespace Payroll.Views
                         case 2:
                             break;
                         case 3:
+                            if(AccountView.RemoveAccount(db, user))
+                            {
+                                logout = true;
+                            }
                             break;
                         case 4:
                             logout = true;
