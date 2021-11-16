@@ -28,6 +28,7 @@ namespace Payroll.Views
                     switch (userChoice)
                     {
                         case 1:
+                            AccountView.PrintPayroll(admin);
                             break;
                         case 2:
                             break;

@@ -21,6 +21,8 @@ namespace PayrollTests
 
             var admin = new Admin { Username = "admin1", Password = "admin1234" };
             db.Accounts.Add(admin);
+            var user = new User { Username = "user1", Password = "pass1" };
+            db.Accounts.Add(user);
         }
 
 
@@ -42,6 +44,14 @@ namespace PayrollTests
             var (account, message) = accountController.RemoveChecks(db, (Admin)admin, admin.Username, admin.Password);
             var actual = accountController.Remove(db, account);
             Assert.IsFalse(actual);
+        }
+
+        [TestMethod()]
+        public void Integration_UserRemoveSelf_ReturnsTrue()
+        {
+            var user = loginController.Login(db, "user1", "pass1");
+            var actual = accountController.Remove(db, user);
+            Assert.IsTrue(actual);
         }
     }
 }

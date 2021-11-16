@@ -54,6 +54,24 @@ namespace Payroll.Views
             
         }
 
+        public static void PrintPayroll(Account account)
+        {
+            if (account == null)
+            {
+                return;
+            }
+
+            if (account.Salary > 0)
+            {
+                Console.Write($"Your next payroll is: ");
+                SuccessMessage(string.Format($"{account.Salary:C}"));
+            }
+            else
+            {
+                ErrorMessage("The salary for your account isn't set yet.");
+            }
+        }
+
         public static void RemoveAnAccount(Database db, Admin admin)
         {
             Console.WriteLine("Please enter the following for the account to remove: ");
