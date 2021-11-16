@@ -48,5 +48,38 @@ namespace Payroll.Views
                 } 
             }
         }
+
+        public static void Menu(Database db)
+        {
+            var exit = false;
+            while (!exit)
+            {
+                Console.Clear();
+                Console.WriteLine("Welcome to Payroll System");
+                Console.WriteLine("What do you want to do?");
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Exit");
+                Console.Write("> ");
+                if (int.TryParse(GetInput(), out var choice))
+                {
+                    if (choice == 1)
+                    {
+                        Login(db);
+                    }
+                    else if (choice == 2)
+                    {
+                        exit = true;
+                    }
+                    else
+                    {
+                        ErrorMessage("Please enter [1] or [2].");
+                    }
+                }
+                else
+                {
+                    ErrorMessage("Please use numbers.");
+                }
+            }
+        }
     }
 }

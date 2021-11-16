@@ -10,7 +10,7 @@ namespace Payroll
             var db = new Database();
             var seeder = new Seeder();
             seeder.Seed(db);
-            LoginView.Login(db);
+            LoginView.Menu(db);
         }
     }
 }
