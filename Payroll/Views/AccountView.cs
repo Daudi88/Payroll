@@ -47,7 +47,7 @@ namespace Payroll.Views
             else
             {
                 ErrorMessage("Something went wrong." +
-                    "\nMake sure to create a unique username. " +
+                    "\nMake sure to create a unique username of 2-15 characters. " +
                     "\nRemember that username and password need to contain digits and letters");
             }
             
@@ -55,19 +55,50 @@ namespace Payroll.Views
 
         public static void PrintPayroll(Account account)
         {
-            if (account == null)
+            if (account != null)
             {
-                return;
+                if (account.Salary > 0)
+                {
+                    Console.Write("Your next payroll is: ");
+                    SuccessMessage(string.Format($"{account.Salary:C}"));
+                }
+                else
+                {
+                    ErrorMessage("The salary for your account isn't set yet.");
+                }
             }
 
-            if (account.Salary > 0)
+        }
+
+        public static void PrintRole(Account account)
+        {
+            if(account != null)
             {
-                Console.Write($"Your next payroll is: ");
-                SuccessMessage(string.Format($"{account.Salary:C}"));
+                if(account.Role != "")
+                {
+                    Console.Write("Your role in the company is: ");
+                    SuccessMessage(account.Role);
+                }
+                else
+                {
+                    ErrorMessage("Your role has not been set yet");
+                }
             }
-            else
+        }
+
+        public static void PrintAllEmployees(Database db)
+        {
+            if(db != null)
             {
-                ErrorMessage("The salary for your account isn't set yet.");
+                Console.WriteLine("ID\tUsername\tPassword");
+                foreach(var account in db.Accounts)
+                {
+                    var tab = account.Username.Length < 8 ? "\t\t" : "\t";
+                    Console.WriteLine($"{account.Id}\t{account.Username}{tab}{account.Password}");
+                }
+
+                Console.WriteLine("[Press any key to continue]");
+                Console.ReadKey();
             }
         }
 

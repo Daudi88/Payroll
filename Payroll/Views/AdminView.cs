@@ -31,8 +31,10 @@ namespace Payroll.Views
                             AccountView.PrintPayroll(admin);
                             break;
                         case 2:
+                            AccountView.PrintRole(admin);
                             break;
                         case 3:
+                            AccountView.PrintAllEmployees(db);
                             break;
                         case 4:
                             AccountView.Add(db);
