@@ -10,7 +10,8 @@ namespace Payroll.Controllers
         {
             if(!string.IsNullOrEmpty(newAccount.Username) 
                 && newAccount.Username.Any(char.IsDigit) 
-                && newAccount.Username.Any(char.IsLetter))
+                && newAccount.Username.Any(char.IsLetter)
+                && newAccount.Username.Length <= 15)
             {
                 foreach(var account in db.Accounts)
                 {

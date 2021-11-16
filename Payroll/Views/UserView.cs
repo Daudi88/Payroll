@@ -29,6 +29,7 @@ namespace Payroll.Views
                             AccountView.PrintPayroll(user);
                             break;
                         case 2:
+                            AccountView.PrintRole(user);
                             break;
                         case 3:
                             if(AccountView.RemoveAccount(db, user))
