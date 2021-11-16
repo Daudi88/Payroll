@@ -41,21 +41,29 @@ namespace Payroll.Controllers
             string message = null;
             if (account != null)
             {
-                if (account.Password == password)
+                if (account.Id != 1)
                 {
-                    if (account.Id != admin.Id)
+                    if (account.Password == password)
                     {
-                        return (account, message);
+                        if (account.Id != admin.Id)
+                        {
+                            return (account, message);
+                        }
+                        else
+                        {
+                            message = "You cannot remove your own account as admin";
+                        }
                     }
                     else
                     {
-                        message = "You cannot remove your own account as admin";
+                        message = "Password is incorrect";
                     }
                 }
                 else
                 {
-                    message = "Password is incorrect";
+                    message = $"You cannot remove {account.Username}";
                 }
+                
             }
             else
             {
