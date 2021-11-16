@@ -7,18 +7,23 @@ namespace Payroll.Controllers.Tests
     [TestClass()]
     public class LoginControllerTests
     {
+        Database db;
+        LoginController loginController;
+        Admin admin;
+
         [TestInitialize]
         public void Initialize()
         {
-            var admin = new Admin { Username = "admin1", Password = "admin1234" };
-            Database.Accounts.Add(admin);
+            db = new Database();
+            loginController = new LoginController();
+            admin = new Admin { Username = "admin1", Password = "admin1234" };
+            db.Accounts.Add(admin);
         }
 
         [TestMethod()]
         public void LoginTest_CorrectInput_ReturnsAccount()
         {
-            var loginController = new LoginController();
-            var account = loginController.Login("admin1", "admin1234");
+            var account = loginController.Login(db, "admin1", "admin1234");
             Assert.IsNotNull(account);
         }
 
@@ -31,8 +36,7 @@ namespace Payroll.Controllers.Tests
         [DataRow("admin1", null)]
         public void LoginTest_WrongInput_ReturnsNull(string username, string password)
         {
-            var loginController = new LoginController();
-            var account = loginController.Login(username, password);
+            var account = loginController.Login(db, username, password);
             Assert.IsNull(account);
         }
     }

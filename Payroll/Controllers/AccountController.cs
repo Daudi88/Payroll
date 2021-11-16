@@ -1,22 +1,19 @@
 ﻿using Payroll.Models;
 using Payroll.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Payroll.Controllers
 {
     public class AccountController
     {
-        public bool Add(Account newAccount)
+        public bool Add(Database db, Account newAccount)
         {
             if(!string.IsNullOrEmpty(newAccount.Username) 
                 && newAccount.Username.Any(char.IsDigit) 
-                && newAccount.Username.Any(char.IsLetter))
+                && newAccount.Username.Any(char.IsLetter)
+                && newAccount.Username.Length <= 15)
             {
-                foreach(var account in Database.Accounts)
+                foreach(var account in db.Accounts)
                 {
                     if(newAccount.Username == account.Username)
                     {
@@ -28,8 +25,9 @@ namespace Payroll.Controllers
                     && newAccount.Password.Any(char.IsDigit)
                     && newAccount.Password.Any(char.IsLetter))
                 {
-                    Database.Accounts.Add(newAccount);
-                    Database.Save();
+                    newAccount.Id = db.Accounts.Count + 1;
+                    db.Accounts.Add(newAccount);
+                    db.Save();
                     return true;
                 }
             }
@@ -37,11 +35,47 @@ namespace Payroll.Controllers
             return false;
         }
 
-        public bool Remove(Account account)
+        public (Account, string) RemoveChecks(Database db, Admin admin, string username, string password)
         {
+            var account = db.Accounts.FirstOrDefault(u => u.Username == username);
+            string message = null;
+            if (account != null)
+            {
+                if (account.Password == password)
+                {
+                    if (account.Id != admin.Id)
+                    {
+                        return (account, message);
+                    }
+                    else
+                    {
+                        message = "You cannot remove your own account as admin";
+                    }
+                }
+                else
+                {
+                    message = "Password is incorrect";
+                }
+            }
+            else
+            {
+                message = "There's no account matching the username provided";
+            }
+
+            return (null, message);
+        }
+
+        public bool Remove(Database db, Account account)
+        {
+            if(account == null)
+            {
+                return false;
+            }
+
             try
             {
-                Database.Accounts.Remove(account);
+                db.Accounts.Remove(account);
+                db.Save();
                 return true;
             }
             catch

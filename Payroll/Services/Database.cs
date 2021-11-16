@@ -2,18 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Payroll.Services
 {
     public class Database
     {
-        public static List<Account> Accounts = new();
-        public static string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "accounts.txt");
+        public List<Account> Accounts = new();
+        public string FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "accounts.txt");
 
-        public static void Load()
+        public void Load()
         {
             var input = File.ReadAllLines(FilePath);
 
@@ -51,7 +48,7 @@ namespace Payroll.Services
             }
         }
 
-        public static void Save()
+        public void Save()
         {
             var contents = new string[Accounts.Count];
             for(int i = 0; i < contents.Length; i++)

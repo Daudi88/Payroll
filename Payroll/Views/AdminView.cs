@@ -7,7 +7,7 @@ namespace Payroll.Views
 {
     class AdminView
     {
-        public static void Menu(Account admin)
+        public static void Menu(Database db, Admin admin)
         {
             var logout = false;
             while (!logout)
@@ -28,15 +28,19 @@ namespace Payroll.Views
                     switch (userChoice)
                     {
                         case 1:
+                            AccountView.PrintPayroll(admin);
                             break;
                         case 2:
+                            AccountView.PrintRole(admin);
                             break;
                         case 3:
+                            AccountView.PrintAllEmployees(db);
                             break;
                         case 4:
-                            AccountView.Add();
+                            AccountView.Add(db);
                             break;
                         case 5:
+                            AccountView.RemoveAnAccount(db, admin);
                             break;
                         case 6:
                             logout = true;
