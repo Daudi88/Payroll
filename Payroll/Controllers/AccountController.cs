@@ -1,7 +1,6 @@
 ﻿using Payroll.Models;
 using Payroll.Services;
 using System.Linq;
-using static Payroll.Helpers.Helper;
 
 namespace Payroll.Controllers
 {

@@ -32,7 +32,7 @@ namespace PayrollTests
             var admin = loginController.Login(db, "admin1", "admin1234");
             var user = new User { Username = "user23", Password = "pass1234" };
             accountController.Add(db, user);
-            var (account, message) = accountController.RemoveChecks(db, (Admin)admin, user.Username, user.Password);
+            var (account, _) = accountController.RemoveChecks(db, (Admin)admin, user.Username, user.Password);
             var actual = accountController.Remove(db, account);
             Assert.IsTrue(actual);
         }
@@ -41,7 +41,7 @@ namespace PayrollTests
         public void Integration_AdminRemoveSelf_ReturnsFalse()
         {
             var admin = loginController.Login(db, "admin1", "admin1234");
-            var (account, message) = accountController.RemoveChecks(db, (Admin)admin, admin.Username, admin.Password);
+            var (account, _) = accountController.RemoveChecks(db, (Admin)admin, admin.Username, admin.Password);
             var actual = accountController.Remove(db, account);
             Assert.IsFalse(actual);
         }
